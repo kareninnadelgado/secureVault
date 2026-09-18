@@ -13,3 +13,8 @@ coverage/
 .vscode/
 .DS_Store
 Thumbs.db
+# Prisma local agent skills
+.agents/
+.claude/
+.cursor/
+.devin/

@@ -1,18 +1,8 @@
-const express = require("express");
+import 'dotenv/config';
+import app from './app.js';
 
-const app = express();
-
-const PORT = 3000;
-
-app.use(express.json());
-
-app.get("/api/health", (req, res) => {
-    res.json({
-        status: "OK",
-        message: "SecureVault API is running"
-    });
-});
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`SecureVault API running on http://localhost:${PORT}`);
+  console.log(`SecureVault API running on http://localhost:${PORT}`);
 });
