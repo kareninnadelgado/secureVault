@@ -1,0 +1,764 @@
+[
+  {
+    "id": "dropDefault.documents.updatedAt",
+    "label": "Drop default on \"documents\".\"updatedAt\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "documents"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "documents",
+          "updatedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop default on \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"documents\" ALTER COLUMN \"updatedAt\" DROP DEFAULT"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" has no default",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"column_default\" IS NULL)) AS \"result\"",
+        "params": [
+          "public",
+          "documents",
+          "updatedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dropDefault.users.updatedAt",
+    "label": "Drop default on \"users\".\"updatedAt\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "updatedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop default on \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"users\" ALTER COLUMN \"updatedAt\" DROP DEFAULT"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" has no default",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"column_default\" IS NULL)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "updatedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.permissions.createdAt",
+    "label": "Add column \"createdAt\" to \"permissions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "createdAt",
+        "table": "permissions"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"createdAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "createdAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"createdAt\"",
+        "sql": "ALTER TABLE \"public\".\"permissions\" ADD COLUMN \"createdAt\" timestamptz DEFAULT (now()) NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"createdAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "createdAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.refresh_tokens.userAgent",
+    "label": "Add column \"userAgent\" to \"refresh_tokens\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "userAgent",
+        "table": "refresh_tokens"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"userAgent\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "userAgent"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"userAgent\"",
+        "sql": "ALTER TABLE \"public\".\"refresh_tokens\" ADD COLUMN \"userAgent\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"userAgent\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "userAgent"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.roles.createdAt",
+    "label": "Add column \"createdAt\" to \"roles\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "createdAt",
+        "table": "roles"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"createdAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "createdAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"createdAt\"",
+        "sql": "ALTER TABLE \"public\".\"roles\" ADD COLUMN \"createdAt\" timestamptz DEFAULT (now()) NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"createdAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "createdAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.users.failedLoginAttempts",
+    "label": "Add column \"failedLoginAttempts\" to \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "failedLoginAttempts",
+        "table": "users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"failedLoginAttempts\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "failedLoginAttempts"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"failedLoginAttempts\"",
+        "sql": "ALTER TABLE \"public\".\"users\" ADD COLUMN \"failedLoginAttempts\" int4 DEFAULT 0 NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"failedLoginAttempts\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "failedLoginAttempts"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.users.lockedUntil",
+    "label": "Add column \"lockedUntil\" to \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "lockedUntil",
+        "table": "users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"lockedUntil\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "lockedUntil"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"lockedUntil\"",
+        "sql": "ALTER TABLE \"public\".\"users\" ADD COLUMN \"lockedUntil\" timestamptz"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"lockedUntil\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "lockedUntil"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.users.passwordChangedAt",
+    "label": "Add column \"passwordChangedAt\" to \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "passwordChangedAt",
+        "table": "users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"passwordChangedAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "passwordChangedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"passwordChangedAt\"",
+        "sql": "ALTER TABLE \"public\".\"users\" ADD COLUMN \"passwordChangedAt\" timestamptz"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"passwordChangedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "users",
+          "passwordChangedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.permissions.updatedAt",
+    "label": "Add column \"updatedAt\" to \"permissions\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "permissions"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "updatedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"permissions\" ADD COLUMN \"updatedAt\" timestamptz"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "updatedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "backfill-permissions-updatedAt",
+    "label": "Backfill permissions.updatedAt",
+    "operationClass": "data",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [
+      {
+        "description": "Check permissions rows missing updatedAt",
+        "sql": "SELECT EXISTS (SELECT 1 FROM \"public\".\"permissions\" WHERE \"updatedAt\" IS NULL) AS ok"
+      }
+    ],
+    "execute": [
+      {
+        "description": "Set permissions.updatedAt from createdAt",
+        "sql": "UPDATE \"public\".\"permissions\" SET \"updatedAt\" = \"createdAt\" WHERE \"updatedAt\" IS NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "Verify permissions.updatedAt is populated",
+        "sql": "SELECT NOT EXISTS (SELECT 1 FROM \"public\".\"permissions\" WHERE \"updatedAt\" IS NULL) AS ok"
+      }
+    ]
+  },
+  {
+    "id": "alterNullability.setNotNull.permissions.updatedAt",
+    "label": "Set NOT NULL on \"permissions\".\"updatedAt\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "permissions"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "updatedAt"
+        ]
+      },
+      {
+        "description": "ensure no NULL values in \"updatedAt\"",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"public\".\"permissions\" WHERE \"updatedAt\" IS NULL) AS \"result\"",
+        "params": []
+      }
+    ],
+    "execute": [
+      {
+        "description": "set NOT NULL on \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"permissions\" ALTER COLUMN \"updatedAt\" SET NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" is NOT NULL",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"is_nullable\" = $4)) AS \"result\"",
+        "params": [
+          "public",
+          "permissions",
+          "updatedAt",
+          "NO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.refresh_tokens.familyId",
+    "label": "Add column \"familyId\" to \"refresh_tokens\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "familyId",
+        "table": "refresh_tokens"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"familyId\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "familyId"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"familyId\"",
+        "sql": "ALTER TABLE \"public\".\"refresh_tokens\" ADD COLUMN \"familyId\" text"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"familyId\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "familyId"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "backfill-refresh_tokens-familyId",
+    "label": "Backfill refresh_tokens.familyId",
+    "operationClass": "data",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [
+      {
+        "description": "Check refresh tokens missing familyId",
+        "sql": "SELECT EXISTS (SELECT 1 FROM \"public\".\"refresh_tokens\" WHERE \"familyId\" IS NULL) AS ok"
+      }
+    ],
+    "execute": [
+      {
+        "description": "Initialize each legacy refresh token as its own family",
+        "sql": "UPDATE \"public\".\"refresh_tokens\" SET \"familyId\" = \"tokenHash\" WHERE \"familyId\" IS NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "Verify refresh token familyId is populated",
+        "sql": "SELECT NOT EXISTS (SELECT 1 FROM \"public\".\"refresh_tokens\" WHERE \"familyId\" IS NULL) AS ok"
+      }
+    ]
+  },
+  {
+    "id": "alterNullability.setNotNull.refresh_tokens.familyId",
+    "label": "Set NOT NULL on \"refresh_tokens\".\"familyId\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "familyId",
+        "table": "refresh_tokens"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"familyId\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "familyId"
+        ]
+      },
+      {
+        "description": "ensure no NULL values in \"familyId\"",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"public\".\"refresh_tokens\" WHERE \"familyId\" IS NULL) AS \"result\"",
+        "params": []
+      }
+    ],
+    "execute": [
+      {
+        "description": "set NOT NULL on \"familyId\"",
+        "sql": "ALTER TABLE \"public\".\"refresh_tokens\" ALTER COLUMN \"familyId\" SET NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"familyId\" is NOT NULL",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"is_nullable\" = $4)) AS \"result\"",
+        "params": [
+          "public",
+          "refresh_tokens",
+          "familyId",
+          "NO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "column.public.roles.updatedAt",
+    "label": "Add column \"updatedAt\" to \"roles\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "roles"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" is missing",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "updatedAt"
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add column \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"roles\" ADD COLUMN \"updatedAt\" timestamptz"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "updatedAt"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "backfill-roles-updatedAt",
+    "label": "Backfill roles.updatedAt",
+    "operationClass": "data",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [
+      {
+        "description": "Check roles rows missing updatedAt",
+        "sql": "SELECT EXISTS (SELECT 1 FROM \"public\".\"roles\" WHERE \"updatedAt\" IS NULL) AS ok"
+      }
+    ],
+    "execute": [
+      {
+        "description": "Set roles.updatedAt from createdAt",
+        "sql": "UPDATE \"public\".\"roles\" SET \"updatedAt\" = \"createdAt\" WHERE \"updatedAt\" IS NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "Verify roles.updatedAt is populated",
+        "sql": "SELECT NOT EXISTS (SELECT 1 FROM \"public\".\"roles\" WHERE \"updatedAt\" IS NULL) AS ok"
+      }
+    ]
+  },
+  {
+    "id": "alterNullability.setNotNull.roles.updatedAt",
+    "label": "Set NOT NULL on \"roles\".\"updatedAt\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "column",
+        "name": "updatedAt",
+        "table": "roles"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure column \"updatedAt\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "updatedAt"
+        ]
+      },
+      {
+        "description": "ensure no NULL values in \"updatedAt\"",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"public\".\"roles\" WHERE \"updatedAt\" IS NULL) AS \"result\"",
+        "params": []
+      }
+    ],
+    "execute": [
+      {
+        "description": "set NOT NULL on \"updatedAt\"",
+        "sql": "ALTER TABLE \"public\".\"roles\" ALTER COLUMN \"updatedAt\" SET NOT NULL"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify column \"updatedAt\" is NOT NULL",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"information_schema\".\"columns\" WHERE (\"table_schema\" = $1 AND \"table_name\" = $2 AND \"column_name\" = $3 AND \"is_nullable\" = $4)) AS \"result\"",
+        "params": [
+          "public",
+          "roles",
+          "updatedAt",
+          "NO"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.refresh_tokens.refresh_tokens_familyId_idx_3d03045e",
+    "label": "Create index \"refresh_tokens_familyId_idx_3d03045e\" on \"refresh_tokens\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "refresh_tokens_familyId_idx_3d03045e",
+        "table": "refresh_tokens"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"refresh_tokens_familyId_idx_3d03045e\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"refresh_tokens_familyId_idx_3d03045e\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"refresh_tokens_familyId_idx_3d03045e\"",
+        "sql": "CREATE INDEX \"refresh_tokens_familyId_idx_3d03045e\" ON \"public\".\"refresh_tokens\" (\"familyId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"refresh_tokens_familyId_idx_3d03045e\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"refresh_tokens_familyId_idx_3d03045e\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.users.users_lockedUntil_idx_87011f1e",
+    "label": "Create index \"users_lockedUntil_idx_87011f1e\" on \"users\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "users_lockedUntil_idx_87011f1e",
+        "table": "users"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"users_lockedUntil_idx_87011f1e\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"users_lockedUntil_idx_87011f1e\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"users_lockedUntil_idx_87011f1e\"",
+        "sql": "CREATE INDEX \"users_lockedUntil_idx_87011f1e\" ON \"public\".\"users\" (\"lockedUntil\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"users_lockedUntil_idx_87011f1e\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"users_lockedUntil_idx_87011f1e\""
+        ]
+      }
+    ]
+  }
+]

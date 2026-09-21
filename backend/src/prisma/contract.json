@@ -398,6 +398,13 @@
           },
           "Permission": {
             "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
               "description": {
                 "nullable": true,
                 "type": {
@@ -416,6 +423,13 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
                   "kind": "scalar"
                 }
               }
@@ -439,6 +453,9 @@
             },
             "storage": {
               "fields": {
+                "createdAt": {
+                  "column": "createdAt"
+                },
                 "description": {
                   "column": "description"
                 },
@@ -447,6 +464,9 @@
                 },
                 "name": {
                   "column": "name"
+                },
+                "updatedAt": {
+                  "column": "updatedAt"
                 }
               },
               "namespaceId": "public",
@@ -466,6 +486,13 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "familyId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
                   "kind": "scalar"
                 }
               },
@@ -492,6 +519,13 @@
               },
               "tokenHash": {
                 "nullable": false,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "userAgent": {
+                "nullable": true,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -531,6 +565,9 @@
                 "expiresAt": {
                   "column": "expiresAt"
                 },
+                "familyId": {
+                  "column": "familyId"
+                },
                 "id": {
                   "column": "id"
                 },
@@ -543,6 +580,9 @@
                 "tokenHash": {
                   "column": "tokenHash"
                 },
+                "userAgent": {
+                  "column": "userAgent"
+                },
                 "userId": {
                   "column": "userId"
                 }
@@ -553,6 +593,13 @@
           },
           "Role": {
             "fields": {
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
               "description": {
                 "nullable": true,
                 "type": {
@@ -571,6 +618,13 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "updatedAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
                   "kind": "scalar"
                 }
               }
@@ -609,6 +663,9 @@
             },
             "storage": {
               "fields": {
+                "createdAt": {
+                  "column": "createdAt"
+                },
                 "description": {
                   "column": "description"
                 },
@@ -617,6 +674,9 @@
                 },
                 "name": {
                   "column": "name"
+                },
+                "updatedAt": {
+                  "column": "updatedAt"
                 }
               },
               "namespaceId": "public",
@@ -703,6 +763,13 @@
                   "kind": "scalar"
                 }
               },
+              "failedLoginAttempts": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
               "firstName": {
                 "nullable": false,
                 "type": {
@@ -735,6 +802,20 @@
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "lockedUntil": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "passwordChangedAt": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/timestamptz-string@1",
                   "kind": "scalar"
                 }
               },
@@ -853,6 +934,9 @@
                 "email": {
                   "column": "email"
                 },
+                "failedLoginAttempts": {
+                  "column": "failedLoginAttempts"
+                },
                 "firstName": {
                   "column": "firstName"
                 },
@@ -867,6 +951,12 @@
                 },
                 "lastName": {
                   "column": "lastName"
+                },
+                "lockedUntil": {
+                  "column": "lockedUntil"
+                },
+                "passwordChangedAt": {
+                  "column": "passwordChangedAt"
                 },
                 "passwordHash": {
                   "column": "passwordHash"
@@ -1157,10 +1247,6 @@
                 },
                 "updatedAt": {
                   "codecId": "pg/timestamptz-string@1",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
                   "nativeType": "timestamptz",
                   "nullable": false
                 },
@@ -1215,6 +1301,15 @@
             },
             "permissions": {
               "columns": {
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
                 "description": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
@@ -1232,6 +1327,11 @@
                 "name": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
+                  "nullable": false
+                },
+                "updatedAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
                   "nullable": false
                 }
               },
@@ -1266,6 +1366,11 @@
                   "nativeType": "timestamptz",
                   "nullable": false
                 },
+                "familyId": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": false
+                },
                 "id": {
                   "codecId": "pg/int4@1",
                   "default": {
@@ -1289,6 +1394,11 @@
                   "codecId": "pg/text@1",
                   "nativeType": "text",
                   "nullable": false
+                },
+                "userAgent": {
+                  "codecId": "pg/text@1",
+                  "nativeType": "text",
+                  "nullable": true
                 },
                 "userId": {
                   "codecId": "pg/int4@1",
@@ -1321,6 +1431,14 @@
                   ],
                   "name": "refresh_tokens_expiresAt_idx_6b6b8c10",
                   "prefix": "refresh_tokens_expiresAt_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
+                    "familyId"
+                  ],
+                  "name": "refresh_tokens_familyId_idx_3d03045e",
+                  "prefix": "refresh_tokens_familyId_idx",
                   "unique": false
                 },
                 {
@@ -1420,6 +1538,15 @@
             },
             "roles": {
               "columns": {
+                "createdAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "default": {
+                    "expression": "now()",
+                    "kind": "function"
+                  },
+                  "nativeType": "timestamptz",
+                  "nullable": false
+                },
                 "description": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
@@ -1437,6 +1564,11 @@
                 "name": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
+                  "nullable": false
+                },
+                "updatedAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
                   "nullable": false
                 }
               },
@@ -1469,6 +1601,15 @@
                 "email": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
+                  "nullable": false
+                },
+                "failedLoginAttempts": {
+                  "codecId": "pg/int4@1",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nativeType": "int4",
                   "nullable": false
                 },
                 "firstName": {
@@ -1504,6 +1645,16 @@
                   "nativeType": "text",
                   "nullable": false
                 },
+                "lockedUntil": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
+                "passwordChangedAt": {
+                  "codecId": "pg/timestamptz-string@1",
+                  "nativeType": "timestamptz",
+                  "nullable": true
+                },
                 "passwordHash": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
@@ -1516,10 +1667,6 @@
                 },
                 "updatedAt": {
                   "codecId": "pg/timestamptz-string@1",
-                  "default": {
-                    "expression": "now()",
-                    "kind": "function"
-                  },
                   "nativeType": "timestamptz",
                   "nullable": false
                 },
@@ -1558,6 +1705,14 @@
                 },
                 {
                   "columns": [
+                    "lockedUntil"
+                  ],
+                  "name": "users_lockedUntil_idx_87011f1e",
+                  "prefix": "users_lockedUntil_idx",
+                  "unique": false
+                },
+                {
+                  "columns": [
                     "roleId"
                   ],
                   "name": "users_roleId_idx_ffccc9a4",
@@ -1589,7 +1744,74 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "237ee2c2410b82823fc4a45d496a22f0e78d8f83fa3bdad3430725afcb80062a"
+    "storageHash": "03613b8710e762ff74e547423340a4e0d708587b669811ebc6355d3b9ba28c8b"
+  },
+  "execution": {
+    "executionHash": "2cd1b576a8d7002a2d0538cbbe791fcb34fcc18ee4ddec4c19a00d8fa6f382d3",
+    "mutations": {
+      "defaults": [
+        {
+          "onCreate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "updatedAt",
+            "namespace": "public",
+            "table": "documents"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "updatedAt",
+            "namespace": "public",
+            "table": "permissions"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "updatedAt",
+            "namespace": "public",
+            "table": "roles"
+          }
+        },
+        {
+          "onCreate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "onUpdate": {
+            "id": "timestampNow",
+            "kind": "generator"
+          },
+          "ref": {
+            "column": "updatedAt",
+            "namespace": "public",
+            "table": "users"
+          }
+        }
+      ]
+    }
   },
   "capabilities": {
     "postgres": {
