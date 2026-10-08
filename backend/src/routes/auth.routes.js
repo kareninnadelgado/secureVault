@@ -34,7 +34,6 @@ router.post(
   '/refresh',
   verifyOrigin,
   authRateLimiter,
-  csrfProtection,
   refresh
 );
 

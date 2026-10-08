@@ -57,6 +57,7 @@ const permissionDefinitions = [
     name: PERMISSIONS.DASHBOARD_READ,
     description: 'View security dashboard',
   },
+  
 ];
 
 const adminPermissions = permissionDefinitions.map(

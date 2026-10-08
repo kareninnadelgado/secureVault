@@ -73,6 +73,7 @@ function hashRefreshToken(token) {
 export async function rotateRefreshToken({
   rawToken,
   ipAddress = null,
+  userAgent = null,
 }) {
   const tokenHash = hashRefreshToken(rawToken);
 
@@ -88,7 +89,7 @@ export async function rotateRefreshToken({
 
   if (storedToken.revokedAt) {
     await db.orm.public.RefreshToken
-      .where({ userId: storedToken.userId })
+      .where({ familyId: storedToken.familyId })
       .updateAll({
         revokedAt: now.toISOString(),
       });
@@ -124,8 +125,10 @@ export async function rotateRefreshToken({
     await tx.orm.public.RefreshToken.create({
       userId: storedToken.userId,
       tokenHash: newTokenHash,
+      familyId: storedToken.familyId,
       expiresAt: newExpiresAt,
       ipAddress,
+      userAgent,
     });
   });
 
@@ -138,10 +141,13 @@ export async function rotateRefreshToken({
 export async function createRefreshToken({
   userId,
   ipAddress = null,
+  userAgent = null,
 }) {
   const rawToken = crypto.randomBytes(64).toString('base64url');
 
   const tokenHash = hashRefreshToken(rawToken);
+
+  const familyId = crypto.randomUUID();
 
   const expiresAt = new Date(
     Date.now() + REFRESH_TOKEN_EXPIRES_IN_MS
@@ -150,8 +156,10 @@ export async function createRefreshToken({
   await db.orm.public.RefreshToken.create({
     userId,
     tokenHash,
+    familyId,
     expiresAt,
     ipAddress,
+    userAgent,
   });
 
   return rawToken;

@@ -43,6 +43,7 @@ export async function login(req, res, next) {
     const refreshToken = await createRefreshToken({
       userId: user.id,
       ipAddress,
+      userAgent,
     });
 
     setAuthCookies(res, {
@@ -90,6 +91,7 @@ export async function refresh(req, res, next) {
       rotation = await rotateRefreshToken({
         rawToken,
         ipAddress,
+        userAgent,
       });
     } catch (error) {
       if (error.message === 'REFRESH_TOKEN_REUSE') {
